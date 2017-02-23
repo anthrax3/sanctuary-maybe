@@ -1,0 +1,41 @@
+{
+  "name": "sanctuary-maybe",
+  "description": "Refuge from null reference errors in JavaScript",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sanctuary-js/sanctuary-maybe.git"
+  },
+  "main": "index.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "adt",
+    "functional",
+    "maybe",
+    "safe",
+    "safety",
+    "types"
+  ],
+  "dependencies": {
+    "sanctuary-def": "0.9.0",
+    "sanctuary-type-classes": "3.0.1",
+    "sanctuary-type-identifiers": "1.0.0"
+  },
+  "ignore": [
+    "/.git/",
+    "/bower_components/",
+    "/coverage/",
+    "/node_modules/",
+    "/scripts/",
+    "/test/",
+    "/.*",
+    "/CONTRIBUTING.md",
+    "/Makefile",
+    "/circle.yml",
+    "/package.json"
+  ]
+}
