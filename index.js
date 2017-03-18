@@ -16,13 +16,13 @@
                        require('sanctuary-type-identifiers'));
   } else if (typeof define === 'function' && define.amd != null) {
     define(['sanctuary-def',
-             'sanctuary-type-classes',
-             'sanctuary-type-identifiers'],
+            'sanctuary-type-classes',
+            'sanctuary-type-identifiers'],
            f);
   } else {
-    self.sanctuary = f(self.sanctuaryDef,
-                       self.sanctuaryTypeClasses,
-                       self.sanctuaryTypeIdentifiers);
+    self.sanctuaryMaybe = f(self.sanctuaryDef,
+                            self.sanctuaryTypeClasses,
+                            self.sanctuaryTypeIdentifiers);
   }
 
 }(function($, Z, type) {
