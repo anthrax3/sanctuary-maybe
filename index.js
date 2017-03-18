@@ -48,7 +48,7 @@
   //. Nothing.
   //.
   //. ```javascript
-  //. > S.Nothing
+  //. > Maybe.Nothing
   //. Nothing
   //. ```
   var Nothing = Maybe.Nothing = new _Maybe('Nothing');
@@ -58,7 +58,7 @@
   //. Takes a value of any type and returns a Just with the given value.
   //.
   //. ```javascript
-  //. > S.Just(42)
+  //. > Maybe.Just(42)
   //. Just(42)
   //. ```
   function Just(x) {
@@ -76,7 +76,7 @@
   //. Returns Nothing.
   //.
   //. ```javascript
-  //. > S.empty(S.Maybe)
+  //. > Z.empty(Maybe)
   //. Nothing
   //. ```
   Maybe['fantasy-land/empty'] = function() { return Nothing; };
@@ -86,7 +86,7 @@
   //. Takes a value of any type and returns a Just with the given value.
   //.
   //. ```javascript
-  //. > S.of(S.Maybe, 42)
+  //. > Z.of(Maybe, 42)
   //. Just(42)
   //. ```
   Maybe['fantasy-land/of'] = Just;
@@ -96,7 +96,7 @@
   //. Returns Nothing.
   //.
   //. ```javascript
-  //. > S.zero(S.Maybe)
+  //. > Z.zero(Maybe)
   //. Nothing
   //. ```
   Maybe['fantasy-land/zero'] = function() { return Nothing; };
@@ -106,10 +106,10 @@
   //. `true` if `this` is Nothing; `false` if `this` is a Just.
   //.
   //. ```javascript
-  //. > S.Nothing.isNothing
+  //. > Maybe.Nothing.isNothing
   //. true
   //.
-  //. > S.Just(42).isNothing
+  //. > Maybe.Just(42).isNothing
   //. false
   //. ```
 
@@ -118,10 +118,10 @@
   //. `true` if `this` is a Just; `false` if `this` is Nothing.
   //.
   //. ```javascript
-  //. > S.Just(42).isJust
+  //. > Maybe.Just(42).isJust
   //. true
   //.
-  //. > S.Nothing.isJust
+  //. > Maybe.Nothing.isJust
   //. false
   //. ```
 
@@ -130,10 +130,10 @@
   //. Returns the string representation of the Maybe.
   //.
   //. ```javascript
-  //. > S.toString(S.Nothing)
+  //. > Z.toString(Maybe.Nothing)
   //. 'Nothing'
   //.
-  //. > S.toString(S.Just([1, 2, 3]))
+  //. > Z.toString(Maybe.Just([1, 2, 3]))
   //. 'Just([1, 2, 3])'
   //. ```
   Maybe.prototype.toString = function() {
@@ -148,10 +148,10 @@
   //. See also [`Maybe#toString`][].
   //.
   //. ```javascript
-  //. > S.Nothing.inspect()
+  //. > Maybe.Nothing.inspect()
   //. 'Nothing'
   //.
-  //. > S.Just([1, 2, 3]).inspect()
+  //. > Maybe.Just([1, 2, 3]).inspect()
   //. 'Just([1, 2, 3])'
   //. ```
   Maybe.prototype.inspect = function() { return this.toString(); };
@@ -166,16 +166,16 @@
   //.     according to [`equals`](#equals).
   //.
   //. ```javascript
-  //. > S.equals(S.Nothing, S.Nothing)
+  //. > Z.equals(Maybe.Nothing, Maybe.Nothing)
   //. true
   //.
-  //. > S.equals(S.Just([1, 2, 3]), S.Just([1, 2, 3]))
+  //. > Z.equals(Maybe.Just([1, 2, 3]), Maybe.Just([1, 2, 3]))
   //. true
   //.
-  //. > S.equals(S.Just([1, 2, 3]), S.Just([3, 2, 1]))
+  //. > Z.equals(Maybe.Just([1, 2, 3]), Maybe.Just([3, 2, 1]))
   //. false
   //.
-  //. > S.equals(S.Just([1, 2, 3]), S.Nothing)
+  //. > Z.equals(Maybe.Just([1, 2, 3]), Maybe.Nothing)
   //. false
   //. ```
   Maybe.prototype['fantasy-land/equals'] = function(other) {
@@ -198,16 +198,16 @@
   //. Otherwise, this method returns the Just.
   //.
   //. ```javascript
-  //. > S.concat(S.Nothing, S.Nothing)
+  //. > Z.concat(Maybe.Nothing, Maybe.Nothing)
   //. Nothing
   //.
-  //. > S.concat(S.Just([1, 2, 3]), S.Just([4, 5, 6]))
+  //. > Z.concat(Maybe.Just([1, 2, 3]), Maybe.Just([4, 5, 6]))
   //. Just([1, 2, 3, 4, 5, 6])
   //.
-  //. > S.concat(S.Nothing, S.Just([1, 2, 3]))
+  //. > Z.concat(Maybe.Nothing, Maybe.Just([1, 2, 3]))
   //. Just([1, 2, 3])
   //.
-  //. > S.concat(S.Just([1, 2, 3]), S.Nothing)
+  //. > Z.concat(Maybe.Just([1, 2, 3]), Maybe.Nothing)
   //. Just([1, 2, 3])
   //. ```
   Maybe.prototype['fantasy-land/concat'] = function(other) {
@@ -223,10 +223,10 @@
   //. to this Just's value.
   //.
   //. ```javascript
-  //. > S.map(Math.sqrt, S.Nothing)
+  //. > Z.map(Math.sqrt, Maybe.Nothing)
   //. Nothing
   //.
-  //. > S.map(Math.sqrt, S.Just(9))
+  //. > Z.map(Math.sqrt, Maybe.Just(9))
   //. Just(3)
   //. ```
   Maybe.prototype['fantasy-land/map'] = function(f) {
@@ -240,16 +240,16 @@
   //. the result of applying the given Just's value to this Just's value.
   //.
   //. ```javascript
-  //. > S.ap(S.Nothing, S.Nothing)
+  //. > Z.ap(Maybe.Nothing, Maybe.Nothing)
   //. Nothing
   //.
-  //. > S.ap(S.Nothing, S.Just(9))
+  //. > Z.ap(Maybe.Nothing, Maybe.Just(9))
   //. Nothing
   //.
-  //. > S.ap(S.Just(Math.sqrt), S.Nothing)
+  //. > Z.ap(Maybe.Just(Math.sqrt), Maybe.Nothing)
   //. Nothing
   //.
-  //. > S.ap(S.Just(Math.sqrt), S.Just(9))
+  //. > Z.ap(Maybe.Just(Math.sqrt), Maybe.Just(9))
   //. Just(3)
   //. ```
   Maybe.prototype['fantasy-land/ap'] = function(other) {
@@ -262,14 +262,18 @@
   //. it returns the result of applying the function to this Just's value.
   //.
   //. ```javascript
-  //. > S.chain(S.parseFloat, S.Nothing)
+  //. > function head(xs) {
+  //. .   return xs.length > 0 ? Maybe.Just(xs[0]) : Maybe.Nothing;
+  //. . }
+  //.
+  //. > Z.chain(head, Maybe.Nothing)
   //. Nothing
   //.
-  //. > S.chain(S.parseFloat, S.Just('xxx'))
+  //. > Z.chain(head, Maybe.Just([]))
   //. Nothing
   //.
-  //. > S.chain(S.parseFloat, S.Just('12.34'))
-  //. Just(12.34)
+  //. > Z.chain(head, Maybe.Just(['foo', 'bar', 'baz']))
+  //. Just('foo')
   //. ```
   Maybe.prototype['fantasy-land/chain'] = function(f) {
     return this.isJust ? f(this.value) : this;
@@ -281,16 +285,16 @@
   //. Returns `this` if `this` is a Just; the other Maybe otherwise.
   //.
   //. ```javascript
-  //. > S.alt(S.Nothing, S.Nothing)
+  //. > Z.alt(Maybe.Nothing, Maybe.Nothing)
   //. Nothing
   //.
-  //. > S.alt(S.Nothing, S.Just(1))
+  //. > Z.alt(Maybe.Nothing, Maybe.Just(1))
   //. Just(1)
   //.
-  //. > S.alt(S.Just(2), S.Nothing)
+  //. > Z.alt(Maybe.Just(2), Maybe.Nothing)
   //. Just(2)
   //.
-  //. > S.alt(S.Just(3), S.Just(4))
+  //. > Z.alt(Maybe.Just(3), Maybe.Just(4))
   //. Just(3)
   //. ```
   Maybe.prototype['fantasy-land/alt'] = function(other) {
@@ -307,10 +311,10 @@
   //.     Just's value.
   //.
   //. ```javascript
-  //. > S.reduce_(Math.pow, 10, S.Nothing)
+  //. > Z.reduce(Math.pow, 10, Maybe.Nothing)
   //. 10
   //.
-  //. > S.reduce_(Math.pow, 10, S.Just(3))
+  //. > Z.reduce(Math.pow, 10, Maybe.Just(3))
   //. 1000
   //. ```
   Maybe.prototype['fantasy-land/reduce'] = function(f, x) {
@@ -328,10 +332,10 @@
   //.     first function to this Just's value.
   //.
   //. ```javascript
-  //. > S.traverse(Array, S.words, S.Nothing)
+  //. > Z.traverse(Array, s => s.split(' '), Maybe.Nothing)
   //. [Nothing]
   //.
-  //. > S.traverse(Array, S.words, S.Just('foo bar baz'))
+  //. > Z.traverse(Array, s => s.split(' '), Maybe.Just('foo bar baz'))
   //. [Just('foo'), Just('bar'), Just('baz')]
   //. ```
   Maybe.prototype['fantasy-land/traverse'] = function(typeRep, f) {
@@ -345,10 +349,10 @@
   //. to `this`.
   //.
   //. ```javascript
-  //. > S.extend(x => x.value + 1, S.Nothing)
+  //. > Z.extend(x => x.value + 1, Maybe.Nothing)
   //. Nothing
   //.
-  //. > S.extend(x => x.value + 1, S.Just(42))
+  //. > Z.extend(x => x.value + 1, Maybe.Just(42))
   //. Just(43)
   //. ```
   Maybe.prototype['fantasy-land/extend'] = function(f) {

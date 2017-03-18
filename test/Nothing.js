@@ -1,11 +1,12 @@
 'use strict';
 
-var S = require('sanctuary');
 var Z = require('sanctuary-type-classes');
 
 var Maybe = require('..');
 
 var eq = require('./internal/eq');
+var head = require('./internal/head');
+var inc = require('./internal/inc');
 
 
 suite('Nothing', function() {
@@ -23,11 +24,11 @@ suite('Nothing', function() {
 
   test('"fantasy-land/ap" method', function() {
     eq(Z.ap(Maybe.Nothing, Maybe.Nothing), Maybe.Nothing);
-    eq(Z.ap(Maybe.Just(S.inc), Maybe.Nothing), Maybe.Nothing);
+    eq(Z.ap(Maybe.Just(inc), Maybe.Nothing), Maybe.Nothing);
   });
 
   test('"fantasy-land/chain" method', function() {
-    eq(Z.chain(S.head, Maybe.Nothing), Maybe.Nothing);
+    eq(Z.chain(head, Maybe.Nothing), Maybe.Nothing);
   });
 
   test('"fantasy-land/concat" method', function() {
