@@ -11,18 +11,14 @@
   'use strict';
 
   if (typeof module === 'object' && typeof module.exports === 'object') {
-    module.exports = f(require('sanctuary-type-classes'),
-                       require('sanctuary-type-identifiers'));
+    module.exports = f(require('sanctuary-type-classes'));
   } else if (typeof define === 'function' && define.amd != null) {
-    define(['sanctuary-type-classes',
-            'sanctuary-type-identifiers'],
-           f);
+    define(['sanctuary-type-classes'], f);
   } else {
-    self.sanctuaryMaybe = f(self.sanctuaryTypeClasses,
-                            self.sanctuaryTypeIdentifiers);
+    self.sanctuaryMaybe = f(self.sanctuaryTypeClasses);
   }
 
-}(function(Z, type) {
+}(function(Z) {
 
   'use strict';
 

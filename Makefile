@@ -38,8 +38,6 @@ lint:
 	  -- index.js
 	$(ESLINT) \
 	  --env node \
-	$(ESLINT) \
-	  --env node \
 	  --global suite \
 	  --global test \
 	  --rule 'dot-notation: [error, {allowKeywords: true}]' \
