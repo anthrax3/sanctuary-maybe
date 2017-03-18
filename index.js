@@ -13,8 +13,21 @@
 //. The Maybe type represents optional values: a value of type `Maybe a` is
 //. either a Just whose value is of type `a` or Nothing (with no value).
 //.
-//. The Maybe type satisfies the [Setoid][], [Monoid][], [Monad][],
-//. [Alternative][], [Traversable][], and [Extend][] specifications.
+//. `Maybe a` satisfies the following [Fantasy Land][] specifications:
+//.
+//.   - [Setoid][]
+//.   - [Semigroup][] and [Monoid][] (if `a` satisfies Semigroup)
+//.   - [Functor][]
+//.   - [Apply][]
+//.   - [Applicative][]
+//.   - [Chain][]
+//.   - [Monad][]
+//.   - [Alt][]
+//.   - [Plus][]
+//.   - [Alternative][]
+//.   - [Foldable][]
+//.   - [Traversable][]
+//.   - [Extend][]
 
 (function(f) {
 
@@ -365,11 +378,18 @@
 
 }));
 
+//. [Alt]:                          v:fantasyland/fantasy-land#alt
 //. [Alternative]:                  v:fantasyland/fantasy-land#alternative
 //. [Applicative]:                  v:fantasyland/fantasy-land#applicative
+//. [Apply]:                        v:fantasyland/fantasy-land#apply
+//. [Chain]:                        v:fantasyland/fantasy-land#chain
 //. [Extend]:                       v:fantasyland/fantasy-land#extend
+//. [Fantasy Land]:                 v:fantasyland/fantasy-land
+//. [Foldable]:                     v:fantasyland/fantasy-land#foldable
+//. [Functor]:                      v:fantasyland/fantasy-land#functor
 //. [Monad]:                        v:fantasyland/fantasy-land#monad
 //. [Monoid]:                       v:fantasyland/fantasy-land#monoid
+//. [Plus]:                         v:fantasyland/fantasy-land#plus
 //. [Semigroup]:                    v:fantasyland/fantasy-land#semigroup
 //. [Setoid]:                       v:fantasyland/fantasy-land#setoid
 //. [Traversable]:                  v:fantasyland/fantasy-land#traversable
