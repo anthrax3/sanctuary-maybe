@@ -11,63 +11,22 @@
   'use strict';
 
   if (typeof module === 'object' && typeof module.exports === 'object') {
-    module.exports = f(require('sanctuary-def'),
-                       require('sanctuary-type-classes'),
+    module.exports = f(require('sanctuary-type-classes'),
                        require('sanctuary-type-identifiers'));
   } else if (typeof define === 'function' && define.amd != null) {
-    define(['sanctuary-def',
-            'sanctuary-type-classes',
+    define(['sanctuary-type-classes',
             'sanctuary-type-identifiers'],
            f);
   } else {
-    self.sanctuaryMaybe = f(self.sanctuaryDef,
-                            self.sanctuaryTypeClasses,
+    self.sanctuaryMaybe = f(self.sanctuaryTypeClasses,
                             self.sanctuaryTypeIdentifiers);
   }
 
-}(function($, Z, type) {
+}(function(Z, type) {
 
   'use strict';
 
-  //  typeEq :: String -> a -> Boolean
-  function typeEq(typeIdent) {
-    return function(x) {
-      return type(x) === typeIdent;
-    };
-  }
-
-
-  //  readmeUrl :: String -> String
-  function readmeUrl(id) {
-    var version = '0.0.0';  // updated programmatically
-    return 'https://github.com/sanctuary-js/sanctuary-maybe/tree/v' + version +
-           '#' + id;
-  }
-
-  //  :: Type
-  var a = $.TypeVariable('a');
-
-  //  maybeTypeIdent :: String
-  var maybeTypeIdent = 'sanctuary/Maybe';
-
-  //  $Maybe :: Type -> Type
-  var $Maybe = $.UnaryType(
-    maybeTypeIdent,
-    readmeUrl('MaybeType'),
-    typeEq(maybeTypeIdent),
-    function(maybe) { return maybe.isJust ? [maybe.value] : []; }
-  );
-
-  //  defaultEnv :: Array Type
-  var env = Z.concat($.env, [
-    $Maybe
-  ]);
-
-  /* eslint-disable indent */
-
   var M = {};
-
-  var def = $.create({checkTypes: true, env: env});
 
   //. ### Maybe type
   //.
@@ -76,11 +35,6 @@
   //.
   //. The Maybe type satisfies the [Setoid][], [Monoid][], [Monad][],
   //. [Alternative][], [Traversable][], and [Extend][] specifications.
-
-  //# MaybeType :: Type -> Type
-  //.
-  //. A [`UnaryType`][] for use with [sanctuary-def][].
-  M.MaybeType = $Maybe;
 
   //# Maybe :: TypeRep Maybe
   //.
@@ -116,12 +70,12 @@
   function Just(x) {
     return new _Maybe('Just', x);
   }
-  M.Just = def('Just', {}, [a, $Maybe(a)], Just);
+  M.Just = Just;
 
   //# Maybe.@@type :: String
   //.
   //. Maybe type identifier, `'sanctuary/Maybe'`.
-  Maybe['@@type'] = maybeTypeIdent;
+  Maybe['@@type'] = 'sanctuary/Maybe';
 
   //# Maybe.fantasy-land/empty :: () -> Maybe a
   //.
@@ -418,7 +372,5 @@
 //. [Semigroup]:        v:fantasyland/fantasy-land#semigroup
 //. [Setoid]:           v:fantasyland/fantasy-land#setoid
 //. [Traversable]:      v:fantasyland/fantasy-land#traversable
-//. [`UnaryType`]:      v:sanctuary-js/sanctuary-def#UnaryType
 //. [`Maybe#toString`]: #Maybe.prototype.toString
 //. [`of`]:             v:fantasyland/fantasy-land#of-method
-//. [sanctuary-def]:    v:sanctuary-js/sanctuary-def
