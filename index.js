@@ -79,7 +79,7 @@
 
   //# MaybeType :: Type -> Type
   //.
-  //. A [`UnaryType`][UnaryType] for use with [sanctuary-def][].
+  //. A [`UnaryType`][] for use with [sanctuary-def][].
   M.MaybeType = $Maybe;
 
   //# Maybe :: TypeRep Maybe
@@ -410,59 +410,15 @@
   return M;
 }));
 
-//. [$.Array]:          v:sanctuary-js/sanctuary-def#Array
-//. [$.String]:         v:sanctuary-js/sanctuary-def#String
-//. [Alt]:              v:fantasyland/fantasy-land#alt
 //. [Alternative]:      v:fantasyland/fantasy-land#alternative
 //. [Applicative]:      v:fantasyland/fantasy-land#applicative
-//. [Apply]:            v:fantasyland/fantasy-land#apply
-//. [Bifunctor]:        v:fantasyland/fantasy-land#bifunctor
-//. [BinaryType]:       v:sanctuary-js/sanctuary-def#BinaryType
-//. [Either]:           #either-type
 //. [Extend]:           v:fantasyland/fantasy-land#extend
-//. [Fantasy Land]:     v:fantasyland/fantasy-land
-//. [Foldable]:         v:fantasyland/fantasy-land#foldable
-//. [Functor]:          v:fantasyland/fantasy-land#functor
-//. [Maybe]:            #maybe-type
 //. [Monad]:            v:fantasyland/fantasy-land#monad
 //. [Monoid]:           v:fantasyland/fantasy-land#monoid
-//. [Nullable]:         v:sanctuary-js/sanctuary-def#Nullable
-//. [Object#toString]:  https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/toString
-//. [Ramda]:            http://ramdajs.com/
-//. [RegexFlags]:       v:sanctuary-js/sanctuary-def#RegexFlags
 //. [Semigroup]:        v:fantasyland/fantasy-land#semigroup
 //. [Setoid]:           v:fantasyland/fantasy-land#setoid
 //. [Traversable]:      v:fantasyland/fantasy-land#traversable
-//. [UnaryType]:        v:sanctuary-js/sanctuary-def#UnaryType
-//. [`Z.alt`]:          v:sanctuary-js/sanctuary-type-classes#alt
-//. [`Z.ap`]:           v:sanctuary-js/sanctuary-type-classes#ap
-//. [`Z.apFirst`]:      v:sanctuary-js/sanctuary-type-classes#apFirst
-//. [`Z.apSecond`]:     v:sanctuary-js/sanctuary-type-classes#apSecond
-//. [`Z.bimap`]:        v:sanctuary-js/sanctuary-type-classes#bimap
-//. [`Z.chain`]:        v:sanctuary-js/sanctuary-type-classes#chain
-//. [`Z.chainRec`]:     v:sanctuary-js/sanctuary-type-classes#chainRec
-//. [`Z.concat`]:       v:sanctuary-js/sanctuary-type-classes#concat
-//. [`Z.empty`]:        v:sanctuary-js/sanctuary-type-classes#empty
-//. [`Z.equals`]:       v:sanctuary-js/sanctuary-type-classes#equals
-//. [`Z.extend`]:       v:sanctuary-js/sanctuary-type-classes#extend
-//. [`Z.extract`]:      v:sanctuary-js/sanctuary-type-classes#extract
-//. [`Z.filter`]:       v:sanctuary-js/sanctuary-type-classes#filter
-//. [`Z.filterM`]:      v:sanctuary-js/sanctuary-type-classes#filterM
-//. [`Z.join`]:         v:sanctuary-js/sanctuary-type-classes#join
-//. [`Z.map`]:          v:sanctuary-js/sanctuary-type-classes#map
-//. [`Z.of`]:           v:sanctuary-js/sanctuary-type-classes#of
-//. [`Z.promap`]:       v:sanctuary-js/sanctuary-type-classes#promap
-//. [`Z.sequence`]:     v:sanctuary-js/sanctuary-type-classes#sequence
-//. [`Z.toString`]:     v:sanctuary-js/sanctuary-type-classes#toString
-//. [`Z.traverse`]:     v:sanctuary-js/sanctuary-type-classes#traverse
-//. [`Z.zero`]:         v:sanctuary-js/sanctuary-type-classes#zero
+//. [`UnaryType`]:      v:sanctuary-js/sanctuary-def#UnaryType
+//. [`Maybe#toString`]: #Maybe.prototype.toString
 //. [`of`]:             v:fantasyland/fantasy-land#of-method
-//. [parseInt]:         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 //. [sanctuary-def]:    v:sanctuary-js/sanctuary-def
-//. [thrush]:           https://github.com/raganwald-deprecated/homoiconic/blob/master/2008-10-30/thrush.markdown
-//. [type identifier]:  v:sanctuary-js/sanctuary-type-identifiers
-//.
-//. [`Either#fantasy-land/bimap`]:      #Either.prototype.fantasy-land/bimap
-//. [`Either#fantasy-land/map`]:        #Either.prototype.fantasy-land/map
-//. [`Either#toString`]:                #Either.prototype.toString
-//. [`Maybe#toString`]:                 #Maybe.prototype.toString
