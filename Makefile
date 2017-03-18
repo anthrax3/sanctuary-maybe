@@ -65,7 +65,7 @@ setup:
 
 .PHONY: test
 test:
-	$(MOCHA) -- test
+	$(MOCHA) -- test/index.js
 ifeq ($(shell node --version | cut -d . -f 1),v6)
 	$(DOCTEST) -- index.js
 else
