@@ -29,6 +29,15 @@
 //.   - [Traversable][]
 //.   - [Extend][]
 
+
+//. ### Maybe type
+//.
+//. The Maybe type represents optional values: a value of type `Maybe a` is
+//. either a Just whose value is of type `a` or Nothing (with no value).
+//.
+//. The Maybe type satisfies the [Setoid][], [Monoid][], [Monad][],
+//. [Alternative][], [Traversable][], and [Extend][] specifications.
+
 (function(f) {
 
   'use strict';
@@ -44,6 +53,51 @@
 }(function(Z) {
 
   'use strict';
+
+  //  typeEq :: String -> a -> Boolean
+  function typeEq(typeIdent) {
+    return function(x) {
+      return type(x) === typeIdent;
+    };
+  }
+
+
+  //  readmeUrl :: String -> String
+  function readmeUrl(id) {
+    var version = '0.0.0';  // updated programmatically
+    return 'https://github.com/sanctuary-js/sanctuary-maybe/tree/v' + version +
+           '#' + id;
+  }
+
+  //  :: Type
+  var a = $.TypeVariable('a');
+
+  //  maybeTypeIdent :: String
+  var maybeTypeIdent = 'sanctuary/Maybe';
+
+  //  $Maybe :: Type -> Type
+  var $Maybe = $.UnaryType(
+    maybeTypeIdent,
+    readmeUrl('MaybeType'),
+    typeEq(maybeTypeIdent),
+    function(maybe) { return maybe.isJust ? [maybe.value] : []; }
+  );
+
+  //  defaultEnv :: Array Type
+  var env = Z.concat($.env, [
+    $Maybe
+  ]);
+
+  /* eslint-disable indent */
+
+  var M = {};
+
+  var def = $.create({checkTypes: true, env: env});
+
+  //# MaybeType :: Type -> Type
+  //.
+  //. A [`UnaryType`][UnaryType] for use with [sanctuary-def][].
+  M.MaybeType = $Maybe;
 
   //# Maybe :: TypeRep Maybe
   //.
