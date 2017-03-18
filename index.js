@@ -1,10 +1,20 @@
-//  ,______  ______,  ,________,,_____,,_____,,__________  ,__________,
-//  |      \/      |  |        ||     ||     ||          \ |          |
-//  |_,          ,_|  |_      _||_    ||    _||_,   __    ||_,   _____|
-//    |   \  /   |     /      \   \   \/   /    |        /   |      |
-//  ,_|    ||    |_,,_/   /\   \_, \      /   ,_|   __   \ ,_|   ___|_,
-//  |      ||      ||     ||     |  |    |    |           ||          |
-//  |______||______||_____||_____|  |____|    |__________/ |__________|
+/*
+    ,______  ______,  ,________,,_____,,_____,,__________  ,__________,
+    |      \/      |  |        ||     ||     ||          \ |          |
+    |_,          ,_|  |_      _||_    ||    _||_,   __    ||_,   _____|
+      |   \  /   |     /      \   \   \/   /    |        /   |      |
+    ,_|    ||    |_,,_/   /\   \_, \      /   ,_|   __   \ ,_|   ___|_,
+    |      ||      ||     ||     |  |    |    |           ||          |
+    |______||______||_____||_____|  |____|    |__________/ |__________|
+                                                                         */
+
+//. # sanctuary-maybe
+//.
+//. The Maybe type represents optional values: a value of type `Maybe a` is
+//. either a Just whose value is of type `a` or Nothing (with no value).
+//.
+//. The Maybe type satisfies the [Setoid][], [Monoid][], [Monad][],
+//. [Alternative][], [Traversable][], and [Extend][] specifications.
 
 (function(f) {
 
@@ -22,17 +32,9 @@
 
   'use strict';
 
-  //. ### Maybe type
-  //.
-  //. The Maybe type represents optional values: a value of type `Maybe a` is
-  //. either a Just whose value is of type `a` or Nothing (with no value).
-  //.
-  //. The Maybe type satisfies the [Setoid][], [Monoid][], [Monad][],
-  //. [Alternative][], [Traversable][], and [Extend][] specifications.
-
   //# Maybe :: TypeRep Maybe
   //.
-  //. The [type representative](#type-representatives) for the Maybe type.
+  //. The [type representative][] for the Maybe type.
   var Maybe = {prototype: _Maybe.prototype};
 
   Maybe.prototype.constructor = Maybe;
@@ -363,13 +365,14 @@
 
 }));
 
-//. [Alternative]:      v:fantasyland/fantasy-land#alternative
-//. [Applicative]:      v:fantasyland/fantasy-land#applicative
-//. [Extend]:           v:fantasyland/fantasy-land#extend
-//. [Monad]:            v:fantasyland/fantasy-land#monad
-//. [Monoid]:           v:fantasyland/fantasy-land#monoid
-//. [Semigroup]:        v:fantasyland/fantasy-land#semigroup
-//. [Setoid]:           v:fantasyland/fantasy-land#setoid
-//. [Traversable]:      v:fantasyland/fantasy-land#traversable
-//. [`Maybe#toString`]: #Maybe.prototype.toString
-//. [`of`]:             v:fantasyland/fantasy-land#of-method
+//. [Alternative]:                  v:fantasyland/fantasy-land#alternative
+//. [Applicative]:                  v:fantasyland/fantasy-land#applicative
+//. [Extend]:                       v:fantasyland/fantasy-land#extend
+//. [Monad]:                        v:fantasyland/fantasy-land#monad
+//. [Monoid]:                       v:fantasyland/fantasy-land#monoid
+//. [Semigroup]:                    v:fantasyland/fantasy-land#semigroup
+//. [Setoid]:                       v:fantasyland/fantasy-land#setoid
+//. [Traversable]:                  v:fantasyland/fantasy-land#traversable
+//. [`Maybe#toString`]:             #Maybe.prototype.toString
+//. [`of`]:                         v:fantasyland/fantasy-land#of-method
+//. [type representative]:          https://sanctuary.js.org/#type-representatives
