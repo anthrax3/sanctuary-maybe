@@ -19,7 +19,6 @@ var laws = require('./internal/laws');
 
 var Nothing = Maybe.Nothing;
 var Just = Maybe.Just;
-var Maybe = Maybe;
 
 
 function eq(actual, expected) {

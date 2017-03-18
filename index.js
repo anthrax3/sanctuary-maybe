@@ -56,8 +56,6 @@
 
   /* eslint-disable indent */
 
-  var M = {};
-
   //# Maybe :: TypeRep Maybe
   //.
   //. The [type representative][] for the Maybe type.
