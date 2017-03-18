@@ -22,8 +22,6 @@
 
   'use strict';
 
-  var M = {};
-
   //. ### Maybe type
   //.
   //. The Maybe type represents optional values: a value of type `Maybe a` is
@@ -35,7 +33,7 @@
   //# Maybe :: TypeRep Maybe
   //.
   //. The [type representative](#type-representatives) for the Maybe type.
-  var Maybe = M.Maybe = {prototype: _Maybe.prototype};
+  var Maybe = {prototype: _Maybe.prototype};
 
   Maybe.prototype.constructor = Maybe;
 
@@ -53,7 +51,7 @@
   //. > S.Nothing
   //. Nothing
   //. ```
-  var Nothing = M.Nothing = new _Maybe('Nothing');
+  var Nothing = Maybe.Nothing = new _Maybe('Nothing');
 
   //# Just :: a -> Maybe a
   //.
@@ -66,7 +64,7 @@
   function Just(x) {
     return new _Maybe('Just', x);
   }
-  M.Just = Just;
+  Maybe.Just = Just;
 
   //# Maybe.@@type :: String
   //.
@@ -357,7 +355,8 @@
     return this.isJust ? Just(f(this)) : this;
   };
 
-  return M;
+  return Maybe;
+
 }));
 
 //. [Alternative]:      v:fantasyland/fantasy-land#alternative
