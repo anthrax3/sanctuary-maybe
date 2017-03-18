@@ -10,7 +10,6 @@
 
   'use strict';
 
-  /* istanbul ignore else */
   if (typeof module === 'object' && typeof module.exports === 'object') {
     module.exports = f(require('sanctuary-def'),
                        require('sanctuary-type-classes'),

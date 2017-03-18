@@ -28,7 +28,6 @@
   "ignore": [
     "/.git/",
     "/bower_components/",
-    "/coverage/",
     "/node_modules/",
     "/scripts/",
     "/test/",

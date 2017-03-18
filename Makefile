@@ -1,6 +1,6 @@
 DOCTEST = node_modules/.bin/doctest --module commonjs --prefix .
 ESLINT = node_modules/.bin/eslint --config node_modules/sanctuary-style/eslint-es3.json --env es3
-ISTANBUL = node_modules/.bin/istanbul
+MOCHA = node_modules/.bin/mocha --ui tdd
 REMEMBER_BOWER = node_modules/.bin/remember-bower
 TRANSCRIBE = node_modules/.bin/transcribe
 XYZ = node_modules/.bin/xyz --repo git@github.com:sanctuary-js/sanctuary-maybe.git --script scripts/prepublish
@@ -71,8 +71,7 @@ yarn.lock: package.json
 
 .PHONY: test
 test:
-	$(ISTANBUL) cover node_modules/.bin/_mocha -- --recursive --ui tdd
-	# $(ISTANBUL) check-coverage --branches 100
+	$(MOCHA) -- test
 ifeq ($(shell node --version | cut -d . -f 1),v6)
 	$(DOCTEST) -- index.js
 else
