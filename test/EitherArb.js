@@ -4,7 +4,9 @@ var jsc = require('jsverify');
 var Either = require('sanctuary-either');
 var Z = require('sanctuary-type-classes');
 
-var value = require('./value');
+
+//  value :: { value :: a } -> a
+function value(r) { return r.value; }
 
 
 //  EitherArb :: Arbitrary a -> Arbitrary b -> Arbitrary (Either a b)

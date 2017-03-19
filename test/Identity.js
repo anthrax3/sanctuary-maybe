@@ -3,9 +3,6 @@
 var FL = require('fantasy-land');
 var Z = require('sanctuary-type-classes');
 
-var equals = require('./equals');
-var map = require('./map');
-
 
 //  Identity :: a -> Identity a
 function Identity(value) {
@@ -18,7 +15,7 @@ Identity['@@type'] = 'sanctuary-maybe/Identity';
 Identity[FL.of] = Identity;
 
 Identity.prototype[FL.equals] = function(other) {
-  return equals(this.value)(other.value);
+  return Z.equals(this.value, other.value);
 };
 
 Identity.prototype[FL.concat] = function(other) {
@@ -30,7 +27,7 @@ Identity.prototype[FL.map] = function(f) {
 };
 
 Identity.prototype[FL.ap] = function(other) {
-  return map(other.value)(this);
+  return Z.map(other.value, this);
 };
 
 Identity.prototype[FL.chain] = function(f) {
@@ -42,7 +39,7 @@ Identity.prototype[FL.reduce] = function(f, x) {
 };
 
 Identity.prototype[FL.traverse] = function(typeRep, f) {
-  return map(Identity)(f(this.value));
+  return Z.map(Identity, f(this.value));
 };
 
 Identity.prototype[FL.extend] = function(f) {

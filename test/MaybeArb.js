@@ -3,9 +3,11 @@
 var jsc = require('jsverify');
 var Z = require('sanctuary-type-classes');
 
-var Maybe = require('../..');
+var Maybe = require('..');
 
-var value = require('./value');
+
+//  value :: { value :: a } -> a
+function value(r) { return r.value; }
 
 
 //  MaybeArb :: Arbitrary a -> Arbitrary (Maybe a)

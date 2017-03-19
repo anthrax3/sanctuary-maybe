@@ -2,19 +2,17 @@
 
 var assert = require('assert');
 
+var laws = require('fantasy-laws');
 var jsc = require('jsverify');
 var Either = require('sanctuary-either');
 var Z = require('sanctuary-type-classes');
 
 var Maybe = require('..');
 
-var EitherArb = require('./internal/EitherArb');
-var Identity = require('./internal/Identity');
-var IdentityArb = require('./internal/IdentityArb');
-var MaybeArb = require('./internal/MaybeArb');
-var add_ = require('./internal/add_');
-var equals = require('./internal/equals');
-var laws = require('./internal/laws');
+var EitherArb = require('./EitherArb');
+var Identity = require('./Identity');
+var IdentityArb = require('./IdentityArb');
+var MaybeArb = require('./MaybeArb');
 
 
 var Nothing = Maybe.Nothing;
@@ -26,6 +24,9 @@ function eq(actual, expected) {
   assert.strictEqual(Z.toString(actual), Z.toString(expected));
   assert.strictEqual(Z.equals(actual, expected), true);
 }
+
+//  add_ :: (Number, Number) -> Number
+function add_(a, b) { return a + b; }
 
 //  eitherToMaybe :: Either a b -> Maybe b
 function eitherToMaybe(e) { return e.isLeft ? Nothing : Just(e.value); }
@@ -166,223 +167,222 @@ suite('Maybe', function() {
 
   suite('Setoid laws', function() {
 
-    var setoidLaws = laws.Setoid;
+    test('reflexivity',
+         laws.Setoid.reflexivity(
+           MaybeArb(jsc.falsy)
+         ));
 
-    setoidLaws.reflexivity(
-      MaybeArb(jsc.falsy)
-    );
+    test('symmetry',
+         laws.Setoid.symmetry(
+           MaybeArb(jsc.bool),
+           MaybeArb(jsc.bool)
+         ));
 
-    setoidLaws.symmetry(
-      MaybeArb(jsc.bool),
-      MaybeArb(jsc.bool)
-    );
-
-    setoidLaws.transitivity(
-      MaybeArb(jsc.bool),
-      MaybeArb(jsc.bool),
-      MaybeArb(jsc.bool)
-    );
+    test('transitivity',
+         laws.Setoid.transitivity(
+           MaybeArb(jsc.bool),
+           MaybeArb(jsc.bool),
+           MaybeArb(jsc.bool)
+         ));
 
   });
 
   suite('Semigroup laws', function() {
 
-    var semigroupLaws = laws.Semigroup(equals);
-
-    semigroupLaws.associativity(
-      MaybeArb(jsc.string),
-      MaybeArb(jsc.string),
-      MaybeArb(jsc.string)
-    );
+    test('associativity',
+         laws.Semigroup(Z.equals).associativity(
+           MaybeArb(jsc.string),
+           MaybeArb(jsc.string),
+           MaybeArb(jsc.string)
+         ));
 
   });
 
   suite('Monoid laws', function() {
 
-    var monoidLaws = laws.Monoid(equals, Maybe);
+    test('left identity',
+         laws.Monoid(Z.equals, Maybe).leftIdentity(
+           MaybeArb(jsc.string)
+         ));
 
-    monoidLaws.leftIdentity(
-      MaybeArb(jsc.string)
-    );
-
-    monoidLaws.rightIdentity(
-      MaybeArb(jsc.string)
-    );
+    test('right identity',
+         laws.Monoid(Z.equals, Maybe).rightIdentity(
+           MaybeArb(jsc.string)
+         ));
 
   });
 
   suite('Functor laws', function() {
 
-    var functorLaws = laws.Functor(equals);
+    test('identity',
+         laws.Functor(Z.equals).identity(
+           MaybeArb(jsc.number)
+         ));
 
-    functorLaws.identity(
-      MaybeArb(jsc.number)
-    );
-
-    functorLaws.composition(
-      MaybeArb(jsc.number),
-      jsc.constant(Math.sqrt),
-      jsc.constant(Math.abs)
-    );
+    test('composition',
+         laws.Functor(Z.equals).composition(
+           MaybeArb(jsc.number),
+           jsc.constant(Math.sqrt),
+           jsc.constant(Math.abs)
+         ));
 
   });
 
   suite('Apply laws', function() {
 
-    var applyLaws = laws.Apply(equals);
-
-    applyLaws.composition(
-      MaybeArb(jsc.constant(Math.sqrt)),
-      MaybeArb(jsc.constant(Math.abs)),
-      MaybeArb(jsc.number)
-    );
+    test('composition',
+         laws.Apply(Z.equals).composition(
+           MaybeArb(jsc.constant(Math.sqrt)),
+           MaybeArb(jsc.constant(Math.abs)),
+           MaybeArb(jsc.number)
+         ));
 
   });
 
   suite('Applicative laws', function() {
 
-    var applicativeLaws = laws.Applicative(equals, Maybe);
+    test('identity',
+         laws.Applicative(Z.equals, Maybe).identity(
+           MaybeArb(jsc.number)
+         ));
 
-    applicativeLaws.identity(
-      MaybeArb(jsc.number)
-    );
+    test('homomorphism',
+         laws.Applicative(Z.equals, Maybe).homomorphism(
+           jsc.constant(Math.abs),
+           jsc.number
+         ));
 
-    applicativeLaws.homomorphism(
-      jsc.constant(Math.abs),
-      jsc.number
-    );
-
-    applicativeLaws.interchange(
-      MaybeArb(jsc.constant(Math.abs)),
-      jsc.number
-    );
+    test('interchange',
+         laws.Applicative(Z.equals, Maybe).interchange(
+           MaybeArb(jsc.constant(Math.abs)),
+           jsc.number
+         ));
 
   });
 
   suite('Chain laws', function() {
 
-    var chainLaws = laws.Chain(equals);
-
-    chainLaws.associativity(
-      MaybeArb(jsc.array(jsc.asciistring)),
-      jsc.constant(head),
-      jsc.constant(parseFloat_)
-    );
+    test('associativity',
+         laws.Chain(Z.equals).associativity(
+           MaybeArb(jsc.array(jsc.asciistring)),
+           jsc.constant(head),
+           jsc.constant(parseFloat_)
+         ));
 
   });
 
   suite('Monad laws', function() {
 
-    var monadLaws = laws.Monad(equals, Maybe);
+    test('left identity',
+         laws.Monad(Z.equals, Maybe).leftIdentity(
+           jsc.constant(head),
+           jsc.string
+         ));
 
-    monadLaws.leftIdentity(
-      jsc.constant(head),
-      jsc.string
-    );
-
-    monadLaws.rightIdentity(
-      MaybeArb(jsc.number)
-    );
+    test('right identity',
+         laws.Monad(Z.equals, Maybe).rightIdentity(
+           MaybeArb(jsc.number)
+         ));
 
   });
 
   suite('Alt laws', function() {
 
-    var altLaws = laws.Alt(equals);
+    test('associativity',
+         laws.Alt(Z.equals).associativity(
+           MaybeArb(jsc.number),
+           MaybeArb(jsc.number),
+           MaybeArb(jsc.number)
+         ));
 
-    altLaws.associativity(
-      MaybeArb(jsc.number),
-      MaybeArb(jsc.number),
-      MaybeArb(jsc.number)
-    );
-
-    altLaws.distributivity(
-      MaybeArb(jsc.number),
-      MaybeArb(jsc.number),
-      jsc.constant(Math.sqrt)
-    );
+    test('distributivity',
+         laws.Alt(Z.equals).distributivity(
+           MaybeArb(jsc.number),
+           MaybeArb(jsc.number),
+           jsc.constant(Math.sqrt)
+         ));
 
   });
 
   suite('Plus laws', function() {
 
-    var plusLaws = laws.Plus(equals, Maybe);
+    test('left identity',
+         laws.Plus(Z.equals, Maybe).leftIdentity(
+           MaybeArb(jsc.number)
+         ));
 
-    plusLaws.leftIdentity(
-      MaybeArb(jsc.number)
-    );
+    test('right identity',
+         laws.Plus(Z.equals, Maybe).rightIdentity(
+           MaybeArb(jsc.number)
+         ));
 
-    plusLaws.rightIdentity(
-      MaybeArb(jsc.number)
-    );
-
-    plusLaws.annihilation(
-      jsc.constant(Math.sqrt)
-    );
+    test('annihilation',
+         laws.Plus(Z.equals, Maybe).annihilation(
+           jsc.constant(Math.sqrt)
+         ));
 
   });
 
   suite('Alternative laws', function() {
 
-    var alternativeLaws = laws.Alternative(equals, Maybe);
+    test('distributivity',
+         laws.Alternative(Z.equals, Maybe).distributivity(
+           MaybeArb(jsc.number),
+           MaybeArb(jsc.constant(Math.sqrt)),
+           MaybeArb(jsc.constant(Math.abs))
+         ));
 
-    alternativeLaws.distributivity(
-      MaybeArb(jsc.number),
-      MaybeArb(jsc.constant(Math.sqrt)),
-      MaybeArb(jsc.constant(Math.abs))
-    );
-
-    alternativeLaws.annihilation(
-      MaybeArb(jsc.number)
-    );
+    test('annihilation',
+         laws.Alternative(Z.equals, Maybe).annihilation(
+           MaybeArb(jsc.number)
+         ));
 
   });
 
   suite('Foldable laws', function() {
 
-    var foldableLaws = laws.Foldable(equals);
-
-    foldableLaws.associativity(
-      jsc.constant(add_),
-      jsc.number,
-      MaybeArb(jsc.number)
-    );
+    test('associativity',
+         laws.Foldable(Z.equals).associativity(
+           jsc.constant(add_),
+           jsc.number,
+           MaybeArb(jsc.number)
+         ));
 
   });
 
   suite('Traversable laws', function() {
 
-    var traversableLaws = laws.Traversable(equals);
+    test('naturality',
+         laws.Traversable(Z.equals).naturality(
+           jsc.constant(eitherToMaybe),
+           MaybeArb(EitherArb(jsc.string, jsc.number)),
+           jsc.constant(Either),
+           jsc.constant(Maybe)
+         ));
 
-    traversableLaws.naturality(
-      jsc.constant(eitherToMaybe),
-      MaybeArb(EitherArb(jsc.string, jsc.number)),
-      jsc.constant(Either),
-      jsc.constant(Maybe)
-    );
+    test('identity',
+         laws.Traversable(Z.equals).identity(
+           MaybeArb(jsc.number),
+           jsc.constant(Identity)
+         ));
 
-    traversableLaws.identity(
-      MaybeArb(jsc.number),
-      jsc.constant(Identity)
-    );
-
-    traversableLaws.composition(
-      MaybeArb(IdentityArb(MaybeArb(jsc.number))),
-      jsc.constant(Identity),
-      jsc.constant(Maybe)
-    );
+    test('composition',
+         laws.Traversable(Z.equals).composition(
+           MaybeArb(IdentityArb(MaybeArb(jsc.number))),
+           jsc.constant(Identity),
+           jsc.constant(Maybe)
+         ));
 
   });
 
   suite('Extend laws', function() {
 
-    var extendLaws = laws.Extend(equals);
-
-    extendLaws.associativity(
-      MaybeArb(jsc.integer),
-      jsc.constant(function(maybe) { return maybe.value + 1; }),
-      jsc.constant(function(maybe) { return maybe.value * maybe.value; })
-    );
+    test('associativity',
+         laws.Extend(Z.equals).associativity(
+           MaybeArb(jsc.integer),
+           jsc.constant(function(maybe) { return maybe.value + 1; }),
+           jsc.constant(function(maybe) { return maybe.value * maybe.value; })
+         ));
 
   });
 

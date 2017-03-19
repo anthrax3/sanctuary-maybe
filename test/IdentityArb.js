@@ -3,7 +3,10 @@
 var Z = require('sanctuary-type-classes');
 
 var Identity = require('./Identity');
-var value = require('./value');
+
+
+//  value :: { value :: a } -> a
+function value(r) { return r.value; }
 
 
 //  IdentityArb :: Arbitrary a -> Arbitrary (Identity a)

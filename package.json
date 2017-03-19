@@ -17,6 +17,7 @@
     "doctest": "0.11.x",
     "eslint": "3.15.x",
     "fantasy-land": "3.0.0",
+    "fantasy-laws": "fantasyland/fantasy-laws#19168d0b383d9f3d180cd770ce9201144d148214",
     "jsverify": "0.7.x",
     "mocha": "3.x.x",
     "remark-cli": "3.x.x",
