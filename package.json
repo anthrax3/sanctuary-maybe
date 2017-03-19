@@ -25,6 +25,7 @@
     "remark-lint-no-unused-definitions": "1.x.x",
     "remember-bower": "0.1.x",
     "sanctuary-either": "sanctuary-js/sanctuary-either#3b5c1a527e08d4c1494bd0c1aaf208b9e174b59a",
+    "sanctuary-identity": "sanctuary-js/sanctuary-identity#ac2064adf01dca74003dcb56a08fd2dec29f1042",
     "sanctuary-style": "0.4.x",
     "transcribe": "0.5.x",
     "xyz": "2.1.x"

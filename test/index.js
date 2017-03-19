@@ -5,11 +5,10 @@ var assert = require('assert');
 var laws = require('fantasy-laws');
 var jsc = require('jsverify');
 var Either = require('sanctuary-either');
+var Identity = require('sanctuary-identity');
 var Z = require('sanctuary-type-classes');
 
 var Maybe = require('..');
-
-var Identity = require('./Identity');
 
 
 var Nothing = Maybe.Nothing;
