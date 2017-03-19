@@ -41,7 +41,6 @@ lint:
 	  --env node \
 	  --global suite \
 	  --global test \
-	  --rule 'dot-notation: [error, {allowKeywords: true}]' \
 	  --rule 'max-len: [off]' \
 	  -- test
 	$(REMEMBER_BOWER) $(shell pwd)

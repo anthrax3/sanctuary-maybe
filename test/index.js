@@ -9,10 +9,7 @@ var Z = require('sanctuary-type-classes');
 
 var Maybe = require('..');
 
-var EitherArb = require('./EitherArb');
 var Identity = require('./Identity');
-var IdentityArb = require('./IdentityArb');
-var MaybeArb = require('./MaybeArb');
 
 
 var Nothing = Maybe.Nothing;
@@ -23,6 +20,23 @@ function eq(actual, expected) {
   assert.strictEqual(arguments.length, eq.length);
   assert.strictEqual(Z.toString(actual), Z.toString(expected));
   assert.strictEqual(Z.equals(actual, expected), true);
+}
+
+//  EitherArb :: Arbitrary a -> Arbitrary b -> Arbitrary (Either a b)
+function EitherArb(lArb, rArb) {
+  return jsc.oneof(lArb.smap(Either.Left, value, Z.toString),
+                   rArb.smap(Either.Right, value, Z.toString));
+}
+
+//  IdentityArb :: Arbitrary a -> Arbitrary (Identity a)
+function IdentityArb(arb) {
+  return arb.smap(Identity, value, Z.toString);
+}
+
+//  MaybeArb :: Arbitrary a -> Arbitrary (Maybe a)
+function MaybeArb(arb) {
+  return jsc.oneof(arb.smap(Maybe.Just, value, Z.toString),
+                   jsc.constant(Maybe.Nothing));
 }
 
 //  add_ :: (Number, Number) -> Number
@@ -42,6 +56,9 @@ function parseFloat_(s) {
   var n = parseFloat(s);
   return isNaN(n) ? Nothing : Just(n);
 }
+
+//  value :: { value :: a } -> a
+function value(r) { return r.value; }
 
 
 suite('Nothing', function() {
