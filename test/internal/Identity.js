@@ -13,7 +13,7 @@ function Identity(value) {
   this.value = value;
 }
 
-Identity['@@type'] = 'sanctuary/Identity';
+Identity['@@type'] = 'sanctuary-maybe/Identity';
 
 Identity[FL.of] = Identity;
 
