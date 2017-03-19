@@ -29,15 +29,6 @@
 //.   - [Traversable][]
 //.   - [Extend][]
 
-
-//. ### Maybe type
-//.
-//. The Maybe type represents optional values: a value of type `Maybe a` is
-//. either a Just whose value is of type `a` or Nothing (with no value).
-//.
-//. The Maybe type satisfies the [Setoid][], [Monoid][], [Monad][],
-//. [Alternative][], [Traversable][], and [Extend][] specifications.
-
 (function(f) {
 
   'use strict';
@@ -53,8 +44,6 @@
 }(function(Z) {
 
   'use strict';
-
-  /* eslint-disable indent */
 
   //# Maybe :: TypeRep Maybe
   //.
