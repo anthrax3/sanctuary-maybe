@@ -1,6 +1,5 @@
 'use strict';
 
-
 var alt = require('../alt');
 var forall = require('../forall');
 var map = require('../map');

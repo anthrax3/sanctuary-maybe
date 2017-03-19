@@ -1,9 +1,9 @@
 'use strict';
 
-var jsc = require('jsverify');
 var assert = require('assert');
 
-var S = require('sanctuary');
+var jsc = require('jsverify');
+var Either = require('sanctuary-either');
 var Z = require('sanctuary-type-classes');
 
 var Maybe = require('..');
@@ -27,11 +27,20 @@ function eq(actual, expected) {
   assert.strictEqual(Z.equals(actual, expected), true);
 }
 
+//  eitherToMaybe :: Either a b -> Maybe b
+function eitherToMaybe(e) { return e.isLeft ? Nothing : Just(e.value); }
+
 //  head :: Array a -> Maybe a
 function head(xs) { return xs.length > 0 ? Just(xs[0]) : Nothing; }
 
 //  inc :: Number -> Number
 function inc(n) { return n + 1; }
+
+//  parseFloat_ :: String -> Maybe Number
+function parseFloat_(s) {
+  var n = parseFloat(s);
+  return isNaN(n) ? Nothing : Just(n);
+}
 
 
 suite('Nothing', function() {
@@ -256,8 +265,8 @@ suite('Maybe', function() {
 
     chainLaws.associativity(
       MaybeArb(jsc.array(jsc.asciistring)),
-      jsc.constant(S.head),
-      jsc.constant(S.parseInt(36))
+      jsc.constant(head),
+      jsc.constant(parseFloat_)
     );
 
   });
@@ -267,7 +276,7 @@ suite('Maybe', function() {
     var monadLaws = laws.Monad(equals, Maybe);
 
     monadLaws.leftIdentity(
-      jsc.constant(S.head),
+      jsc.constant(head),
       jsc.string
     );
 
@@ -346,9 +355,9 @@ suite('Maybe', function() {
     var traversableLaws = laws.Traversable(equals);
 
     traversableLaws.naturality(
-      jsc.constant(S.eitherToMaybe),
+      jsc.constant(eitherToMaybe),
       MaybeArb(EitherArb(jsc.string, jsc.number)),
-      jsc.constant(S.Either),
+      jsc.constant(Either),
       jsc.constant(Maybe)
     );
 

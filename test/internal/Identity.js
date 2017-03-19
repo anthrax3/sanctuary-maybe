@@ -1,7 +1,6 @@
 'use strict';
 
 var FL = require('fantasy-land');
-
 var Z = require('sanctuary-type-classes');
 
 var equals = require('./equals');
