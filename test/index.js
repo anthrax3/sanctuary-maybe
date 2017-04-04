@@ -85,6 +85,8 @@ suite('Nothing', function() {
   test('"fantasy-land/concat" method', function() {
     eq(Z.concat(Maybe.Nothing, Maybe.Nothing), Maybe.Nothing);
     eq(Z.concat(Maybe.Just('foo'), Maybe.Nothing), Maybe.Just('foo'));
+
+    eq(Z.Semigroup.test(Maybe.Nothing), true);
   });
 
   test('"fantasy-land/equals" method', function() {
@@ -142,6 +144,9 @@ suite('Just', function() {
   test('"fantasy-land/concat" method', function() {
     eq(Z.concat(Maybe.Just('foo'), Maybe.Nothing), Maybe.Just('foo'));
     eq(Z.concat(Maybe.Just('foo'), Maybe.Just('bar')), Maybe.Just('foobar'));
+
+    eq(Z.Semigroup.test(Maybe.Just('abc')), true);
+    eq(Z.Semigroup.test(Maybe.Just(123)), false);
   });
 
   test('"fantasy-land/equals" method', function() {

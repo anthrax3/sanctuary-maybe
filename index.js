@@ -56,6 +56,12 @@
     this.isNothing = tag === 'Nothing';
     this.isJust = tag === 'Just';
     if (this.isJust) this.value = value;
+
+    //  Add "fantasy-land/concat" method conditionally so that Just('abc')
+    //  satisfies the requirements of Semigroup but Just(123) does not.
+    if (this.isNothing || Z.Semigroup.test(this.value)) {
+      this['fantasy-land/concat'] = Maybe$prototype$concat;
+    }
   }
 
   //# Nothing :: Maybe a
@@ -225,11 +231,11 @@
   //. > Z.concat(Maybe.Just([1, 2, 3]), Maybe.Nothing)
   //. Just([1, 2, 3])
   //. ```
-  Maybe.prototype['fantasy-land/concat'] = function(other) {
+  function Maybe$prototype$concat(other) {
     return this.isNothing ?
       other :
       other.isNothing ? this : Just(Z.concat(this.value, other.value));
-  };
+  }
 
   //# Maybe#fantasy-land/map :: Maybe a ~> (a -> b) -> Maybe b
   //.
