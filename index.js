@@ -89,8 +89,13 @@
 
   //# Maybe.@@type :: String
   //.
-  //. Maybe type identifier, `'sanctuary/Maybe'`.
-  Maybe['@@type'] = 'sanctuary/Maybe';
+  //. Maybe [type identifier][].
+  //.
+  //. ```javascript
+  //. > Maybe['@@type']
+  //. 'sanctuary/Maybe@1'
+  //. ```
+  Maybe['@@type'] = 'sanctuary/Maybe@1';
 
   //# Maybe.fantasy-land/empty :: () -> Maybe a
   //.
@@ -402,4 +407,5 @@
 //. [Traversable]:                  v:fantasyland/fantasy-land#traversable
 //. [`Maybe#toString`]:             #Maybe.prototype.toString
 //. [`of`]:                         v:fantasyland/fantasy-land#of-method
+//. [type identifier]:              https://github.com/sanctuary-js/sanctuary-type-identifiers
 //. [type representative]:          https://sanctuary.js.org/#type-representatives
