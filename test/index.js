@@ -98,6 +98,13 @@ suite('Nothing', function() {
     eq(Z.extend(function(x) { return x.value / 2; }, Maybe.Nothing), Maybe.Nothing);
   });
 
+  test('"fantasy-land/lte" method', function() {
+    eq(Z.lte(Maybe.Nothing, Maybe.Nothing), true);
+    eq(Z.lte(Maybe.Nothing, Maybe.Just(0)), true);
+
+    eq(Z.Ord.test(Maybe.Nothing), true);
+  });
+
   test('"fantasy-land/map" method', function() {
     eq(Z.map(function() { return 42; }, Maybe.Nothing), Maybe.Nothing);
   });
@@ -155,14 +162,24 @@ suite('Just', function() {
     eq(Z.equals(Maybe.Just(42), Maybe.Nothing), false);
 
     // Value-based equality:
-    eq(Z.equals(Maybe.Just(0), Maybe.Just(-0)), false);
-    eq(Z.equals(Maybe.Just(-0), Maybe.Just(0)), false);
+    eq(Z.equals(Maybe.Just(0), Maybe.Just(-0)), true);
+    eq(Z.equals(Maybe.Just(-0), Maybe.Just(0)), true);
     eq(Z.equals(Maybe.Just(NaN), Maybe.Just(NaN)), true);
     eq(Z.equals(Maybe.Just([1, 2, 3]), Maybe.Just([1, 2, 3])), true);
   });
 
   test('"fantasy-land/extend" method', function() {
     eq(Z.extend(function(x) { return x.value / 2; }, Maybe.Just(42)), Maybe.Just(21));
+  });
+
+  test('"fantasy-land/lte" method', function() {
+    eq(Z.lte(Maybe.Just(1), Maybe.Nothing), false);
+    eq(Z.lte(Maybe.Just(1), Maybe.Just(0)), false);
+    eq(Z.lte(Maybe.Just(1), Maybe.Just(1)), true);
+    eq(Z.lte(Maybe.Just(1), Maybe.Just(2)), true);
+
+    eq(Z.Ord.test(Maybe.Just(1)), true);
+    eq(Z.Ord.test(Maybe.Just(Math.sqrt)), false);
   });
 
   test('"fantasy-land/map" method', function() {

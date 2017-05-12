@@ -15,7 +15,8 @@
 //.
 //. `Maybe a` satisfies the following [Fantasy Land][] specifications:
 //.
-//.   - [Setoid][]
+//.   - [Setoid][] (if `a` satisfies Setoid)
+//.   - [Ord][] (if `a` satisfies Ord)
 //.   - [Semigroup][] and [Monoid][] (if `a` satisfies Semigroup)
 //.   - [Functor][]
 //.   - [Apply][]
@@ -61,6 +62,14 @@
     //  satisfies the requirements of Semigroup but Just(123) does not.
     if (this.isNothing || Z.Semigroup.test(this.value)) {
       this['fantasy-land/concat'] = Maybe$prototype$concat;
+    }
+
+    if (this.isNothing || Z.Setoid.test(this.value)) {
+      this['fantasy-land/equals'] = Maybe$prototype$equals;
+    }
+
+    if (this.isNothing || Z.Ord.test(this.value)) {
+      this['fantasy-land/lte'] = Maybe$prototype$lte;
     }
   }
 
@@ -204,10 +213,39 @@
   //. > Z.equals(Maybe.Just([1, 2, 3]), Maybe.Nothing)
   //. false
   //. ```
-  Maybe.prototype['fantasy-land/equals'] = function(other) {
+  function Maybe$prototype$equals(other) {
     return this.isNothing ? other.isNothing
                           : other.isJust && Z.equals(other.value, this.value);
-  };
+  }
+
+  //# Maybe#fantasy-land/lte :: Ord a => Maybe a ~> Maybe a -> Boolean
+  //.
+  //. Takes a value `m` of the same type and returns `true` if:
+  //.
+  //.   - `this` is Nothing; or
+  //.
+  //.   - `this` and `m` are both Justs and the value of `this` is less
+  //.     than or equal to the value of `m` according to [`lte`](#lte).
+  //.
+  //. ```javascript
+  //. > Z.lte(Maybe.Nothing, Maybe.Nothing)
+  //. true
+  //.
+  //. > Z.lte(Maybe.Nothing, Maybe.Just(0))
+  //. true
+  //.
+  //. > Z.lte(Maybe.Just(0), Maybe.Nothing)
+  //. false
+  //.
+  //. > Z.lte(Maybe.Just(0), Maybe.Just(1))
+  //. true
+  //.
+  //. > Z.lte(Maybe.Just(1), Maybe.Just(0))
+  //. false
+  //. ```
+  function Maybe$prototype$lte(other) {
+    return this.isNothing || other.isJust && Z.lte(this.value, other.value);
+  }
 
   //# Maybe#fantasy-land/concat :: Semigroup a => Maybe a ~> Maybe a -> Maybe a
   //.
@@ -401,6 +439,7 @@
 //. [Functor]:                      v:fantasyland/fantasy-land#functor
 //. [Monad]:                        v:fantasyland/fantasy-land#monad
 //. [Monoid]:                       v:fantasyland/fantasy-land#monoid
+//. [Ord]:                          v:fantasyland/fantasy-land#ord
 //. [Plus]:                         v:fantasyland/fantasy-land#plus
 //. [Semigroup]:                    v:fantasyland/fantasy-land#semigroup
 //. [Setoid]:                       v:fantasyland/fantasy-land#setoid
