@@ -102,9 +102,9 @@
   //.
   //. ```javascript
   //. > Maybe['@@type']
-  //. 'sanctuary/Maybe@1'
+  //. 'sanctuary-maybe/Maybe@1'
   //. ```
-  Maybe['@@type'] = 'sanctuary/Maybe@1';
+  Maybe['@@type'] = 'sanctuary-maybe/Maybe@1';
 
   //# Maybe.fantasy-land/empty :: () -> Maybe a
   //.
