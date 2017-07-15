@@ -392,23 +392,23 @@ suite('Maybe', function() {
 
     test('naturality',
          laws.Traversable(Z.equals).naturality(
-           jsc.constant(eitherToMaybe),
-           MaybeArb(EitherArb(jsc.string, jsc.number)),
            jsc.constant(Either),
-           jsc.constant(Maybe)
+           jsc.constant(Maybe),
+           jsc.constant(eitherToMaybe),
+           MaybeArb(EitherArb(jsc.string, jsc.number))
          ));
 
     test('identity',
          laws.Traversable(Z.equals).identity(
-           MaybeArb(jsc.number),
-           jsc.constant(Identity)
+           jsc.constant(Identity),
+           MaybeArb(jsc.number)
          ));
 
     test('composition',
          laws.Traversable(Z.equals).composition(
-           MaybeArb(IdentityArb(MaybeArb(jsc.number))),
            jsc.constant(Identity),
-           jsc.constant(Maybe)
+           jsc.constant(Maybe),
+           MaybeArb(IdentityArb(MaybeArb(jsc.number)))
          ));
 
   });
