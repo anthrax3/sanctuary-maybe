@@ -22,7 +22,7 @@
     "jsverify": "0.8.x",
     "sanctuary-either": "sanctuary-js/sanctuary-either#6820739fc0b60c4de6ea33d5129c90615caf90ff",
     "sanctuary-identity": "sanctuary-js/sanctuary-identity#e122c2eb563b50d49a36f23e73fdf4f50ab57e48",
-    "sanctuary-scripts": "sanctuary-js/sanctuary-scripts#899304efb66dbb72c756051a6b5f8b15a2033642"
+    "sanctuary-scripts": "sanctuary-js/sanctuary-scripts#50e88f26d99562ce9944b7a956e35c0f2a77255e"
   },
   "files": [
     "/LICENSE",
