@@ -98,6 +98,10 @@ suite('Nothing', function() {
     eq(Z.extend(function(x) { return x.value / 2; }, Maybe.Nothing), Maybe.Nothing);
   });
 
+  test('"fantasy-land/filter" method', function() {
+    eq(Z.filter(isFinite, Maybe.Nothing), Maybe.Nothing);
+  });
+
   test('"fantasy-land/lte" method', function() {
     eq(Z.lte(Maybe.Nothing, Maybe.Nothing), true);
     eq(Z.lte(Maybe.Nothing, Maybe.Just(0)), true);
@@ -170,6 +174,11 @@ suite('Just', function() {
 
   test('"fantasy-land/extend" method', function() {
     eq(Z.extend(function(x) { return x.value / 2; }, Maybe.Just(42)), Maybe.Just(21));
+  });
+
+  test('"fantasy-land/filter" method', function() {
+    eq(Z.filter(isFinite, Maybe.Just(Infinity)), Maybe.Nothing);
+    eq(Z.filter(isFinite, Maybe.Just(Number.MAX_SAFE_INTEGER)), Maybe.Just(9007199254740991));
   });
 
   test('"fantasy-land/lte" method', function() {

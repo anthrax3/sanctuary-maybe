@@ -280,6 +280,25 @@
       other.isNothing ? this : Just(Z.concat(this.value, other.value));
   }
 
+  //# Maybe#fantasy-land/filter :: Maybe a ~> (a -> Boolean) -> Maybe a
+  //.
+  //. Takes a predicate and returns `this` if `this` is a Just and this Just's
+  //. value satisfies the given predicate; Nothing otherwise.
+  //.
+  //. ```javascript
+  //. > Z.filter(isFinite, Maybe.Nothing)
+  //. Nothing
+  //.
+  //. > Z.filter(isFinite, Maybe.Just(Infinity))
+  //. Nothing
+  //.
+  //. > Z.filter(isFinite, Maybe.Just(Number.MAX_SAFE_INTEGER))
+  //. Just(9007199254740991)
+  //. ```
+  Maybe.prototype['fantasy-land/filter'] = function(pred) {
+    return this.isJust && pred(this.value) ? this : Nothing;
+  };
+
   //# Maybe#fantasy-land/map :: Maybe a ~> (a -> b) -> Maybe b
   //.
   //. Takes a function and returns `this` if `this` is Nothing; otherwise
