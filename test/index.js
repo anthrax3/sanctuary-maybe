@@ -6,6 +6,7 @@ var laws = require('fantasy-laws');
 var jsc = require('jsverify');
 var Either = require('sanctuary-either');
 var Identity = require('sanctuary-identity');
+var show = require('sanctuary-show');
 var Z = require('sanctuary-type-classes');
 
 var Maybe = require('..');
@@ -17,24 +18,24 @@ var Just = Maybe.Just;
 
 function eq(actual, expected) {
   assert.strictEqual(arguments.length, eq.length);
-  assert.strictEqual(Z.toString(actual), Z.toString(expected));
+  assert.strictEqual(show(actual), show(expected));
   assert.strictEqual(Z.equals(actual, expected), true);
 }
 
 //  EitherArb :: Arbitrary a -> Arbitrary b -> Arbitrary (Either a b)
 function EitherArb(lArb, rArb) {
-  return jsc.oneof(lArb.smap(Either.Left, value, Z.toString),
-                   rArb.smap(Either.Right, value, Z.toString));
+  return jsc.oneof(lArb.smap(Either.Left, value, show),
+                   rArb.smap(Either.Right, value, show));
 }
 
 //  IdentityArb :: Arbitrary a -> Arbitrary (Identity a)
 function IdentityArb(arb) {
-  return arb.smap(Identity, value, Z.toString);
+  return arb.smap(Identity, value, show);
 }
 
 //  MaybeArb :: Arbitrary a -> Arbitrary (Maybe a)
 function MaybeArb(arb) {
-  return jsc.oneof(arb.smap(Maybe.Just, value, Z.toString),
+  return jsc.oneof(arb.smap(Maybe.Just, value, show),
                    jsc.constant(Maybe.Nothing));
 }
 
@@ -117,8 +118,8 @@ suite('Nothing', function() {
     eq(Z.reduce(function(x, y) { return x - y; }, 42, Maybe.Nothing), 42);
   });
 
-  test('"toString" method', function() {
-    eq(Z.toString(Maybe.Nothing), 'Nothing');
+  test('"@@show" method', function() {
+    eq(show(Maybe.Nothing), 'Nothing');
   });
 
   test('"inspect" method', function() {
@@ -199,13 +200,13 @@ suite('Just', function() {
     eq(Z.reduce(function(x, y) { return x - y; }, 42, Maybe.Just(5)), 37);
   });
 
-  test('"toString" method', function() {
-    eq(Z.toString(Maybe.Just([1, 2, 3])), 'Just([1, 2, 3])');
+  test('"@@show" method', function() {
+    eq(show(Maybe.Just([1, 2, 3])), 'Just ([1, 2, 3])');
   });
 
   test('"inspect" method', function() {
     eq(Maybe.Just([1, 2, 3]).inspect.length, 0);
-    eq(Maybe.Just([1, 2, 3]).inspect(), 'Just([1, 2, 3])');
+    eq(Maybe.Just([1, 2, 3]).inspect(), 'Just ([1, 2, 3])');
   });
 
 });

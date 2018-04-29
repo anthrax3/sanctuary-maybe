@@ -35,14 +35,15 @@
   'use strict';
 
   if (typeof module === 'object' && typeof module.exports === 'object') {
-    module.exports = f(require('sanctuary-type-classes'));
+    module.exports = f(require('sanctuary-show'),
+                       require('sanctuary-type-classes'));
   } else if (typeof define === 'function' && define.amd != null) {
-    define(['sanctuary-type-classes'], f);
+    define(['sanctuary-show', 'sanctuary-type-classes'], f);
   } else {
-    self.sanctuaryMaybe = f(self.sanctuaryTypeClasses);
+    self.sanctuaryMaybe = f(self.sanctuaryShow, self.sanctuaryTypeClasses);
   }
 
-}(function(Z) {
+}(function(show, Z) {
 
   'use strict';
 
@@ -160,19 +161,19 @@
   //. false
   //. ```
 
-  //# Maybe#toString :: Maybe a ~> () -> String
+  //# Maybe#@@show :: Maybe a ~> () -> String
   //.
   //. Returns the string representation of the Maybe.
   //.
   //. ```javascript
-  //. > Z.toString(Maybe.Nothing)
+  //. > show(Maybe.Nothing)
   //. 'Nothing'
   //.
-  //. > Z.toString(Maybe.Just([1, 2, 3]))
-  //. 'Just([1, 2, 3])'
+  //. > show(Maybe.Just([1, 2, 3]))
+  //. 'Just ([1, 2, 3])'
   //. ```
-  Maybe.prototype.toString = function() {
-    return this.isJust ? 'Just(' + Z.toString(this.value) + ')' : 'Nothing';
+  Maybe.prototype['@@show'] = function() {
+    return this.isJust ? 'Just (' + show(this.value) + ')' : 'Nothing';
   };
 
   //# Maybe#inspect :: Maybe a ~> () -> String
@@ -180,16 +181,16 @@
   //. Returns the string representation of the Maybe. This method is used by
   //. `util.inspect` and the REPL to format a Maybe for display.
   //.
-  //. See also [`Maybe#toString`][].
+  //. See also [`Maybe#@@show`][].
   //.
   //. ```javascript
   //. > Maybe.Nothing.inspect()
   //. 'Nothing'
   //.
   //. > Maybe.Just([1, 2, 3]).inspect()
-  //. 'Just([1, 2, 3])'
+  //. 'Just ([1, 2, 3])'
   //. ```
-  Maybe.prototype.inspect = function() { return this.toString(); };
+  Maybe.prototype.inspect = function() { return show(this); };
 
   //# Maybe#fantasy-land/equals :: Maybe a ~> Maybe a -> Boolean
   //.
@@ -463,7 +464,7 @@
 //. [Semigroup]:                    v:fantasyland/fantasy-land#semigroup
 //. [Setoid]:                       v:fantasyland/fantasy-land#setoid
 //. [Traversable]:                  v:fantasyland/fantasy-land#traversable
-//. [`Maybe#toString`]:             #Maybe.prototype.toString
+//. [`Maybe#@@show`]:               #Maybe.prototype.@@show
 //. [`of`]:                         v:fantasyland/fantasy-land#of-method
 //. [type identifier]:              https://github.com/sanctuary-js/sanctuary-type-identifiers
 //. [type representative]:          https://sanctuary.js.org/#type-representatives
